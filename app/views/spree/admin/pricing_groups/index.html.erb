@@ -1,0 +1,33 @@
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::PricingGroup) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_pricing_group), new_object_url, { class: "btn-success", icon: 'add', 'data-update' => 'new_property', id: 'new_property_link' } %>
+<% end if can?(:create, Spree::PricingGroup) %>
+
+<table class="table" id='listing_properties' data-hook>
+  <thead>
+    <tr data-hook="listing_properties_header">
+      <th><%= Spree.t(:name) %></th>
+      <th><%= Spree.t(:presentation) %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pricing_groups.each do |pricing_group| %>
+      <tr id="<%= spree_dom_id pricing_group %>" data-hook="listing_pricing_groups_row">
+        <td><%= pricing_group.name %></td>
+        <td><%= pricing_group.identifier %></td>
+        <td class="actions actions-2 text-right">
+          <%= link_to_edit(pricing_group, no_text: true) if can?(:edit, pricing_group) %>
+          <% if can?(:delete, pricing_group) %>
+            <%= link_to admin_pricing_group_path(pricing_group), method: :delete, class: "btn btn-danger btn-sm" do %>
+              <span class="icon icon-delete"></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,40 @@
+<div class="panel-heading">
+  <h1 class="panel-title">
+    <% if object.persisted? %>
+      <%= Spree.t(:edit_pricing_group) %>
+    <% else%>
+      <%= Spree.t(:add_pricing_group) %>
+    <% end %>
+  </h1>
+</div>
+<div class="panel-body">
+  <%= form_for [:admin, object] do |f| %>
+    <div data-hook="admin_pricing_group_form_fields" class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.field_container :name do %>
+            <%= f.label :name, Spree.t(:name) %>
+            <%= f.text_field :name, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.field_container :identifier do %>
+            <%= f.label :identifier, Spree.t(:identifier) %>
+            <%= f.text_field :identifier, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions text-center" data-hook="buttons">
+      <% if object.persisted? %>
+        <%= button Spree.t(:Update) %>
+      <% else%>
+        <%= button Spree.t(:Create) %>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+<%= render 'spree/admin/shared/product_tabs', current: :properties %>
+<%= render 'spree/admin/shared/error_messages', target: @product %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_product_price), new_admin_product_product_price_path(@product), { class: "btn-success", icon: 'add', 'data-update' => 'new_product_price', id: 'new_product_price_link' } %>
+<% end if can? :create, Spree::ProductPrice %>
+
+<table class="table" id='listing_properties' data-hook>
+  <thead>
+    <tr data-hook="listing_properties_header">
+      <th><%= Spree.t(:pricing_group_name) %></th>
+      <th><%= Spree.t(:price) %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product_prices.each do |product_price| %>
+      <tr id="<%= spree_dom_id product_price %>" data-hook="listing_product_prices_row">
+        <td><%= product_price.pricing_group.name rescue nil %></td>
+        <td><%= product_price.price %></td>
+        <td class="actions actions-2 text-right">
+          <%#= link_to_edit(product_price, no_text: true) if can?(:edit, product_price) %>
+          <% if can?(:edit, product_price) %>
+            <%= link_to edit_admin_product_product_price_path(@product, product_price), method: :get, class: "btn btn-primary btn-sm" do %>
+              <span class="icon icon-edit"></span>
+            <% end %>
+          <% end %>
+          <% if can?(:delete, product_price) %>
+            <%= link_to admin_product_product_price_path(@product, product_price), method: :delete, class: "btn btn-danger btn-sm" do %>
+              <span class="icon icon-delete"></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

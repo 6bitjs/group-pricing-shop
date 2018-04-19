@@ -1,0 +1,42 @@
+<div class="panel-heading">
+  <h1 class="panel-title">
+    <% if object.persisted? %>
+      <%= Spree.t(:edit_product_price) %>
+    <% else%>
+      <%= Spree.t(:add_product_price) %>
+    <% end %>
+  </h1>
+</div>
+<div class="panel-body">
+  <% path = object.persisted? ? admin_product_product_price_url(@product, object) : admin_product_product_prices_url(@product) %>
+  <%= form_for [:admin, object], url: path do |f| %>
+    <div data-hook="admin_pricing_group_form_fields" class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.field_container :pricing_group_id do %>
+            <%= label_tag 'pricing_group_id', Spree.t(:pricing_group) %>
+            <%= select_tag "product_price[pricing_group_id]", options_for_select(@pricing_groups.pluck(:name, :id), @product_price.pricing_group_id),
+              class: 'select2' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group">
+          <%= f.field_container :price do %>
+            <%= f.label :price, Spree.t(:price) %>
+            <%= f.text_field :price, class: 'form-control' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions text-center" data-hook="buttons">
+      <% if object.persisted? %>
+        <%= button Spree.t(:Update) %>
+      <% else%>
+        <%= button Spree.t(:Create) %>
+      <% end %>
+
+    </div>
+  <% end %>
+</div>
