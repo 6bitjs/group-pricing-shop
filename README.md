@@ -7,7 +7,7 @@ Introduction goes here.
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_pricing_groups', github: '[your-github-handle]/spree_pricing_groups'
+  gem 'spree_pricing_groups', github: '6bitjs/group-pricing-shop'
   ```
 
 2. Install the gem using Bundler:
