@@ -1,0 +1,38 @@
+<%= render partial: 'spree/admin/shared/product_tabs', locals: { current: :variants } %>
+
+<%= render partial: 'spree/admin/shared/error_messages', locals: { target: @variant } %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_variant_price), new_admin_product_variant_variant_price_path(@product, @variant), { class: "btn-success", icon: 'add', 'data-update' => 'new_variant_price', id: 'new_variant_price_link' } %>
+<% end if can? :create, Spree::ProductPrice %>
+
+<table class="table" id='listing_variant_prices' data-hook>
+  <thead>
+    <tr data-hook="listing_variant_prices_header">
+      <th><%= Spree.t(:pricing_group_name) %></th>
+      <th><%= Spree.t(:price) %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @variant_prices.each do |variant_price| %>
+      <tr id="<%= spree_dom_id variant_price %>" data-hook="listing_variant_prices_row">
+        <td><%= variant_price.pricing_group.name rescue nil %></td>
+        <td><%= variant_price.price %></td>
+        <td class="actions actions-2 text-right">
+          <%#= link_to_edit(variant_price, no_text: true) if can?(:edit, variant_price) %>
+          <% if can?(:edit, variant_price) %>
+            <%= link_to edit_admin_product_variant_variant_price_path(@product, @variant, variant_price), method: :get, class: "btn btn-primary btn-sm" do %>
+              <span class="icon icon-edit"></span>
+            <% end %>
+          <% end %>
+          <% if can?(:delete, variant_price) %>
+            <%= link_to admin_product_variant_variant_price_path(@product, @variant, variant_price), method: :delete, class: "btn btn-danger btn-sm" do %>
+              <span class="icon icon-delete"></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

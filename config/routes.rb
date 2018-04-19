@@ -10,6 +10,9 @@ Spree::Core::Engine.add_routes do
     # end
     resources :products, only: [] do
       resources :product_prices
+      resources :variants, only: [] do
+        resources :variant_prices
+      end
     end
 
   end

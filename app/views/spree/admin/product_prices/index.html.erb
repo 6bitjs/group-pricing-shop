@@ -5,9 +5,9 @@
   <%= button_link_to Spree.t(:new_product_price), new_admin_product_product_price_path(@product), { class: "btn-success", icon: 'add', 'data-update' => 'new_product_price', id: 'new_product_price_link' } %>
 <% end if can? :create, Spree::ProductPrice %>
 
-<table class="table" id='listing_properties' data-hook>
+<table class="table" id='listing_product_prices' data-hook>
   <thead>
-    <tr data-hook="listing_properties_header">
+    <tr data-hook="listing_product_prices_header">
       <th><%= Spree.t(:pricing_group_name) %></th>
       <th><%= Spree.t(:price) %></th>
       <th class="actions"></th>

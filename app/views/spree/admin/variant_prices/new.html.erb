@@ -1,0 +1,10 @@
+<%= render 'spree/admin/shared/product_tabs', current: :properties %>
+<%= render 'spree/admin/shared/error_messages', target: @product %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back), admin_product_variant_variant_prices_path(@product, @variant), { class: "btn-success", icon: 'back' } %>
+<% end if can? :create, Spree::ProductPrice %>
+
+<div id="add_pricing_group_form" class="panel panel-default">
+  <%= render 'form', object: @variant_price %>
+</div>
