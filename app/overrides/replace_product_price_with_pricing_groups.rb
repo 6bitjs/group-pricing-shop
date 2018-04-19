@@ -9,7 +9,7 @@ Deface::Override.new(virtual_path: 'spree/products/_cart_form',
 )
 
 Deface::Override.new(virtual_path: 'spree/products/_cart_form',
-  name: 'replace_product_price_with_pricing_groups',
+  name: 'replace_variant_price_with_pricing_groups',
   replace: "[data-hook='inside_product_cart_form'] #product-variants ul.list-group",
   text: '
     <ul class="list-group">
